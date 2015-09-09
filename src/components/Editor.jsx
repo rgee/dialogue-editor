@@ -35,10 +35,17 @@ const Editor = React.createClass({
     const { currentDirectory } = this.props;
     return <div className="editor">
       <h1> Dialogue Editor </h1>
-      <div>Current Directory: {currentDirectory || 'None'}</div>
-      <button onClick={CurrentDirectoryActions.requestDirectory}>Click Me</button>
-      <h2>Dialogues:</h2>
-      <PathList />
+      <div className="row">
+        <div className="col-xs-4">
+          <h2>Dialogues</h2>
+          <PathList />
+        </div>
+        <div className="col-xs-8">
+          <h2>Choose Directory</h2>
+          <div>Current Directory: {currentDirectory || 'None'}</div>
+          <button onClick={CurrentDirectoryActions.requestDirectory}>Click Me</button>
+        </div>
+      </div>
     </div>;
   }
 });

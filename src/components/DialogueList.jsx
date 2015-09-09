@@ -31,7 +31,7 @@ const DialogueList = React.createClass({
       <ul>
         {paths.map((p) => {
           const base = path.parse(p).base;
-          return <li key={base}>{base}</li>;
+          return <li className="list-unstyled" key={base}>{base}</li>;
         })}
       </ul>
     </div>;

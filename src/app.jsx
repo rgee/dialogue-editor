@@ -1,4 +1,7 @@
 const React = require('react/addons');
+const Editor = require('./components/Editor');
+const CurrentDirectoryStore = require('./stores/CurrentDirectoryStore');
+
 module.exports = () => {
-  React.render(<div>Test</div>, document.body);
+  React.render(<Editor />, document.body);
 };

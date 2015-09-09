@@ -1,5 +1,14 @@
 {
   "name": "sometrpg-dialogue-editor",
   "version": "0.1.0",
-  "main": "main.js"
+  "main": "main.js",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.2.1",
+    "gulp-clean": "^0.3.1",
+    "gulp-sourcemaps": "^1.5.2"
+  },
+  "scripts": {
+    "start": "gulp build && electron ."
+  }
 }

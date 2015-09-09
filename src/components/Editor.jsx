@@ -33,7 +33,7 @@ const Editor = React.createClass({
 
   render() {
     const { currentDirectory } = this.props;
-    return <div>
+    return <div className="editor">
       <h1> Dialogue Editor </h1>
       <div>Current Directory: {currentDirectory || 'None'}</div>
       <button onClick={CurrentDirectoryActions.requestDirectory}>Click Me</button>

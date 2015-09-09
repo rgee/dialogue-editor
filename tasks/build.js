@@ -11,7 +11,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('build', ['clean'], function() {
-  return gulp.src('src/*.js')
+  return gulp.src('src/*')
     .pipe(sourcemaps.init())
     .pipe(babel())
     .pipe(sourcemaps.write())

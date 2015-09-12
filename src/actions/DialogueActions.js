@@ -5,7 +5,7 @@ const Immutable = require('immutable');
 
 class DialogueActions {
   constructor() {
-    this.generateActions('undo');
+    this.generateActions('undo', 'redo');
   }
 
   load(path) {

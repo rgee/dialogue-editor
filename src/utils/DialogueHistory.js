@@ -15,7 +15,7 @@ class DialogueHistory {
     this.states = this.states.slice(0, this.stateIndex + 1)
       .concat([nextState]);
 
-    this.states = this.ops.slice(0, this.stateIndex + 1)
+    this.ops = this.ops.slice(0, this.stateIndex + 1)
       .concat([operation.name]);
 
     this.stateIndex++;

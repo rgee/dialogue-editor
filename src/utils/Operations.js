@@ -9,7 +9,7 @@ const {
   ADD_SPEAKER,
   REMOVE_SPEAKER,
   CHANGE_LINES
-} = require('./Operations');
+} = require('./OperationTypes');
 
 const Immutable = require('immutable');
 

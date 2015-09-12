@@ -6,6 +6,7 @@
     "alt": "^0.17.3",
     "fs-jetpack": "^0.7.0",
     "immutable": "^3.7.5",
+    "lodash": "^3.10.1",
     "react": "^0.13.3"
   },
   "devDependencies": {

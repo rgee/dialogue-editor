@@ -1,8 +1,14 @@
 const React = require('react/addons');
+const ClickStateToggle = require('./ClickStateToggle');
+const CardEditor = require('./CardEditor')
 
 const EditorPane = React.createClass({
   propTypes: {
     dialogue: React.PropTypes.object
+  },
+
+  updateLine() {
+
   },
 
   render() {
@@ -32,7 +38,12 @@ const EditorPane = React.createClass({
                   {
                     deck.cards.map((card, j) => {
                       return <li key={'deck-' + i + 'card-' + j} className="card">
-                        {card.lines.join(' ')}
+                        {
+                          <ClickStateToggle onComplete={this.updateLine}>
+                            <span className="line-display">{card.lines.join(' ')}</span>
+                            <CardEditor lines={card.lines} />
+                          </ClickStateToggle>
+                        }
                       </li>;
                     })
                   }

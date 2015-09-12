@@ -8,7 +8,8 @@ class DialogueActions {
     return (dispatch) => {
       jetpack.readAsync(path, 'json')
         .then(Immutable.fromJS)
-        .then(dispatch);
+        .then(dispatch)
+        .catch((err) => console.error(err));
     };
   }
 

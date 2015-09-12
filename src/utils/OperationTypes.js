@@ -1,10 +1,10 @@
 module.exports = {
-  ADD_DECK: Symbol(),
-  REMOVE_DECK: Symbol(),
-  ADD_CARD: Symbol(),
-  REMOVE_CARD: Symbol(),
-  CHANGE_SPEAKER: Symbol(),
-  CHANGE_DELAY: Symbol(),
-  ADD_SPEAKER: Symbol(),
-  REMOVE_SPEAKER: Symbol()
+  ADD_DECK: Symbol('add deck'),
+  REMOVE_DECK: Symbol('remove deck'),
+  ADD_CARD: Symbol('add card'),
+  REMOVE_CARD: Symbol('remove card'),
+  CHANGE_SPEAKER: Symbol('change speaker'),
+  ADD_SPEAKER: Symbol('add speaker'),
+  REMOVE_SPEAKER: Symbol('remove speaker'),
+  CHANGE_LINES: Symbol('change lines')
 };

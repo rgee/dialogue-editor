@@ -15,14 +15,16 @@ const ClickStateToggle = React.createClass({
     this.setState({ enabled: !this.state.enabled });
   },
 
+  onComplete() {
+    this.props.onComplete.apply(this, arguments);
+    this.setState({ enabled: false });
+  },
+
   render() {
     const { children, onComplete } = this.props;
     let [display, editing] = children;
     editing = React.cloneElement(editing, {
-      onComplete: () => {
-        onComplete.apply(this, arguments);
-        this.setState({ enabled: false });
-      }
+      onComplete: this.onComplete
     });
 
     return (

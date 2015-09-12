@@ -7,9 +7,23 @@ const CardEditor = React.createClass({
      lines: React.PropTypes.array.isRequired
    },
 
+   componentWillMount() {
+     this.setState({ pendingLines: this.props.lines.join('. ')});
+   },
+
+   getInitialState() {
+     return { pendingLines: [] };
+   },
+
+   change(e) {
+     this.setState({
+       pendingLines: e.target.value.split('. ')
+     });
+   },
+
    keyDown(e) {
      if (e.keyCode === ENTER_KEY_CODE) {
-       this.props.onComplete(this.refs.input.value);
+       this.props.onComplete(this.state.pendingLines);
      }
    },
 
@@ -18,10 +32,11 @@ const CardEditor = React.createClass({
    },
 
    render() {
-     const { lines } = this.props;
+     const { pendingLines } = this.state;
      return <input
        ref="input"
-       value={lines.join(' ')}
+       value={pendingLines}
+       onChange={this.change}
        onKeyDown={this.keyDown}
        onClick={this.halt}
      />;

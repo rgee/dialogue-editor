@@ -1,14 +1,17 @@
 const React = require('react/addons');
 const ClickStateToggle = require('./ClickStateToggle');
 const CardEditor = require('./CardEditor')
+const Operations = require('../utils/Operations');
+const DialogueActions = require('../actions/DialogueActions');
 
 const EditorPane = React.createClass({
   propTypes: {
     dialogue: React.PropTypes.object
   },
 
-  updateLine() {
-
+  updateLine(deckIdx, cardIdx, lines) {
+    const op = Operations.changeLines(deckIdx, cardIdx, lines);
+    DialogueActions.performOperation(op);
   },
 
   render() {
@@ -30,18 +33,18 @@ const EditorPane = React.createClass({
         <h2>Decks</h2>
         <ul className="decks">
         {
-          dialogue.decks.map((deck, i) => {
+          dialogue.decks.map((deck, deckIdx) => {
             return (
-              <li className="deck" key={'deck-' + i}>
+              <li className="deck" key={'deck-' + deckIdx}>
                 <h3>{deck.speaker}</h3>
                 <ul className="cards">
                   {
-                    deck.cards.map((card, j) => {
-                      return <li key={'deck-' + i + 'card-' + j} className="card">
+                    deck.cards.map((card, cardIdx) => {
+                      return <li key={'deck-' + deckIdx + 'card-' + cardIdx} className="card">
                         {
-                          <ClickStateToggle onComplete={this.updateLine}>
+                          <ClickStateToggle onComplete={(lines) => this.updateLine(deckIdx, cardIdx, lines)}>
                             <span className="line-display">{card.lines.join(' ')}</span>
-                            <CardEditor lines={card.lines} />
+                            <CardEditor lines={card.lines}  />
                           </ClickStateToggle>
                         }
                       </li>;

@@ -1,8 +1,10 @@
 const React = require('react/addons');
 const connectToStores = require('alt/utils/connectToStores');
+const { path: pathJoin } = require('fs-jetpack');
 
 const PathList = require('./DialogueList');
 
+const DialogueActions = require('../actions/DialogueActions');
 const CurrentDirectoryActions = require('../actions/CurrentDirectoryActions');
 const CurrentDirectoryStore = require('../stores/CurrentDirectoryStore');
 const DialogueHistoryStore = require('../stores/DialogueHistoryStore');
@@ -29,9 +31,14 @@ const Editor = React.createClass({
   },
 
   componentWillReceiveProps(newProps) {
-    if (newProps.currentDirectory) {
+    if (!this.props.currentDirectory && newProps.currentDirectory) {
       DialoguePathActions.loadDialoguePaths(newProps.currentDirectory);
     }
+  },
+
+  selectDialoguePath(path) {
+    const fullPath = pathJoin(this.props.currentDirectory, path);
+    DialogueActions.load(fullPath);
   },
 
   render() {
@@ -43,15 +50,15 @@ const Editor = React.createClass({
       <div className="row">
         <div className="col-xs-4">
           <h2>Dialogues</h2>
-          <PathList />
+          <PathList onClick={this.selectDialoguePath}/>
         </div>
         <div className="col-xs-8">
           <h2>Choose Directory</h2>
           <div>Current Directory: {currentDirectory || 'None'}</div>
           <ul>
             {
-              jsDialogue.decks.map((d) => {
-                return <li key={d.name}>{d.name}</li>;
+              jsDialogue.decks.map((d, i) => {
+                return <li key={d.speaker + i}>{d.speaker}</li>;
               })
             }
           </ul>

@@ -7,7 +7,8 @@ const path = remote.require('path');
 
 const DialogueList = React.createClass({
   propTypes: {
-    paths: React.PropTypes.arrayOf(React.PropTypes.string)
+    paths: React.PropTypes.arrayOf(React.PropTypes.string),
+    onClick: React.PropTypes.func.isRequired
   },
 
   statics: {
@@ -31,7 +32,7 @@ const DialogueList = React.createClass({
       <ul>
         {paths.map((p) => {
           const base = path.parse(p).base;
-          return <li className="list-unstyled" key={base}>{base}</li>;
+          return <li className="list-unstyled" onClick={() => this.props.onClick(p)} key={base}>{base}</li>;
         })}
       </ul>
     </div>;

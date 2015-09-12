@@ -1,4 +1,5 @@
 const DialogueHistory = require('../utils/DialogueHistory');
+const DialogueActions = require('../actions/DialogueActions');
 const Immutable = require('immutable');
 const alt = require('../alt');
 
@@ -8,9 +9,17 @@ class DialogueHistoryStore {
       decks: [
         {
           name: 'Liat'
+        },
+        {
+          name: 'M. Soldier'
         }
       ]
-    }))
+    }));
+    this.bindActions(DialogueActions);
+  }
+
+  onLoad(dialogue) {
+    this.history = new DialogueHistory(dialogue);
   }
 }
 

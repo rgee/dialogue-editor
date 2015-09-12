@@ -4,6 +4,10 @@ const Immutable = require('immutable');
 
 
 class DialogueActions {
+  constructor() {
+    this.generateActions('undo');
+  }
+
   load(path) {
     return (dispatch) => {
       jetpack.readAsync(path, 'json')

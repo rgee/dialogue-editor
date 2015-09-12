@@ -13,6 +13,14 @@ class DialogueHistoryStore {
     this.history.performOperation(op);
   }
 
+  onUndo() {
+    this.history.undo();
+  }
+
+  onRedo() {
+    this.history.redo();
+  }
+
   onLoad(dialogue) {
     this.history = new DialogueHistory(dialogue);
   }

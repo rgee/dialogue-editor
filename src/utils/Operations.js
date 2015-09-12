@@ -16,8 +16,10 @@ module.exports = {
   addDeck: () => {
     return new Operation(ADD_DECK, (state) => {
       const newDeck = Immutable.fromJS({
-        name: null,
-        cards: []
+        speaker: null,
+        cards: [{
+          lines: []
+        }]
       });
 
       return state.updateIn(['decks'], val => val.push(newDeck));

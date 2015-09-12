@@ -3,6 +3,7 @@ const connectToStores = require('alt/utils/connectToStores');
 const { path: pathJoin } = require('fs-jetpack');
 
 const PathList = require('./DialogueList');
+const EditorPane = require('./EditorPane');
 
 const DialogueActions = require('../actions/DialogueActions');
 const CurrentDirectoryActions = require('../actions/CurrentDirectoryActions');
@@ -23,9 +24,10 @@ const Editor = React.createClass({
     },
 
     getPropsFromStores() {
+      const { history } = DialogueHistoryStore.getState();
       return {
         currentDirectory: CurrentDirectoryStore.getState().currentDirectory,
-        dialogue: DialogueHistoryStore.getState().history.getState()
+        dialogue: history ? history.getState() : null
       };
     }
   },
@@ -43,7 +45,7 @@ const Editor = React.createClass({
 
   render() {
     const { currentDirectory, dialogue } = this.props;
-    const jsDialogue = dialogue.toJS();
+    const jsDialogue = dialogue ? dialogue.toJS() : null;
 
     return <div className="editor">
       <h1> Dialogue Editor </h1>
@@ -54,15 +56,9 @@ const Editor = React.createClass({
         </div>
         <div className="col-xs-8">
           <h2>Choose Directory</h2>
-          <div>Current Directory: {currentDirectory || 'None'}</div>
-          <ul>
-            {
-              jsDialogue.decks.map((d, i) => {
-                return <li key={d.speaker + i}>{d.speaker}</li>;
-              })
-            }
-          </ul>
           <button onClick={CurrentDirectoryActions.requestDirectory}>Click Me</button>
+          <h2>Editor</h2>
+          <EditorPane dialogue={jsDialogue} />
         </div>
       </div>
     </div>;

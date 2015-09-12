@@ -1,4 +1,4 @@
-const alt = require('../alt');
+  const alt = require('../alt');
 const CurrentDirectoryActions = require('../actions/CurrentDirectoryActions');
 
 class CurrentDirectoryStore {

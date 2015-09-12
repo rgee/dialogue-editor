@@ -5,17 +5,12 @@ const alt = require('../alt');
 
 class DialogueHistoryStore {
   constructor() {
-    this.history = new DialogueHistory(Immutable.fromJS({
-      decks: [
-        {
-          name: 'Liat'
-        },
-        {
-          name: 'M. Soldier'
-        }
-      ]
-    }));
     this.bindActions(DialogueActions);
+    this.history = null;
+  }
+
+  onPerformOperation(op) {
+    this.history.performOperation(op);
   }
 
   onLoad(dialogue) {

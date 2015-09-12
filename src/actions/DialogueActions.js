@@ -11,6 +11,10 @@ class DialogueActions {
         .then(dispatch);
     };
   }
+
+  performOperation(operation) {
+    this.dispatch(operation);
+  }
 }
 
 module.exports = alt.createActions(DialogueActions);

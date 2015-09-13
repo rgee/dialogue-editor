@@ -2,7 +2,7 @@ var app = require('app');
 var BrowserWindow = require('browser-window');
 var menu = require('menu');
 
-var newMenu = menu.buildFromTemplate([
+var newMenu = [
   {
     label: 'Edit',
     submenu: [
@@ -22,18 +22,65 @@ var newMenu = menu.buildFromTemplate([
       }
     ]
   }
-]);
+];
 
-menu.setApplicationMenu(newMenu);
+if (process.platform === 'darwin') {
+  var name = require('app').getName();
+  newMenu.unshift({
+    label: name,
+    submenu: [
+      {
+        label: 'About ' + name,
+        role: 'about'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: 'Services',
+        role: 'services',
+        submenu: []
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: 'Hide ' + name,
+        accelerator: 'Command+H',
+        role: 'hide'
+      },
+      {
+        label: 'Hide Others',
+        accelerator: 'Command+Shift+H',
+        role: 'hideothers'
+      },
+      {
+        label: 'Show All',
+        role: 'unhide'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: 'Quit',
+        accelerator: 'Command+Q',
+        click: function() { app.quit(); }
+      },
+    ]
+  });
+}
+
+
 
 var mainWindow = null;
 app.on('window-all-closed', function () {
-  if (process.platform != 'darwin') {
-    app.quit();
+  if (process.platform === 'darwin') {
+    app.quit();    
   }
 });
 
 app.on('ready', function () {
+  menu.setApplicationMenu(menu.buildFromTemplate(newMenu));
   mainWindow = new BrowserWindow({
     width: 1600,
     height: 900

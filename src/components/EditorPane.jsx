@@ -19,6 +19,10 @@ const EditorPane = React.createClass({
     DialogueActions.performOperation(op);
   },
 
+  addDeck() {
+    DialogueActions.performOperation(Operations.addDeck());
+  },
+
   render() {
     const { dialogue } = this.props;
     if (!dialogue) {
@@ -36,6 +40,12 @@ const EditorPane = React.createClass({
           }
         </ul>
         <h2>Decks</h2>
+        <button
+          type="button"
+          onClick={this.addDeck}
+          className="btn btn-xs btn-default">
+          Add
+        </button>
         <ul className="decks">
         {
           dialogue.decks.map((deck, deckIdx) => {

@@ -46,32 +46,38 @@ const EditorPane = React.createClass({
           className="btn btn-xs btn-default">
           Add
         </button>
-        <ul className="decks">
+        <ul className="decks list-unstyled">
         {
           dialogue.decks.map((deck, deckIdx) => {
             return (
               <li className="deck" key={'deck-' + deckIdx}>
-                <select value={deck.speaker} onChange={(e) => this.changeSpeaker(deckIdx, e.target.value)}>
-                  {
-                    dialogue.actors.map((actor) => {
-                      return <option value={actor}>{actor}</option>;
-                    })
-                  }
-                </select>
-                <ul className="cards">
-                  {
-                    deck.cards.map((card, cardIdx) => {
-                      return <li key={'deck-' + deckIdx + 'card-' + cardIdx} className="card">
-                        {
-                          <ClickStateToggle onComplete={(lines) => this.updateLine(deckIdx, cardIdx, lines)}>
-                            <span className="line-display">{card.lines.join(' ')}</span>
-                            <CardEditor lines={card.lines}  />
-                          </ClickStateToggle>
-                        }
-                      </li>;
-                    })
-                  }
-                </ul>
+                <div className="panel panel-default">
+                  <div className="panel-heading">
+                    <select value={deck.speaker} onChange={(e) => this.changeSpeaker(deckIdx, e.target.value)}>
+                      {
+                        dialogue.actors.map((actor) => {
+                          return <option value={actor}>{actor}</option>;
+                        })
+                      }
+                    </select>
+                  </div>
+                  <div className="panel-body">
+                    <ul className="cards list-unstyled">
+                      {
+                        deck.cards.map((card, cardIdx) => {
+                          return <li key={'deck-' + deckIdx + 'card-' + cardIdx} className="card">
+                            {
+                              <ClickStateToggle onComplete={(lines) => this.updateLine(deckIdx, cardIdx, lines)}>
+                                <span className="line-display">{card.lines.join(' ')}</span>
+                                <CardEditor lines={card.lines}  />
+                              </ClickStateToggle>
+                            }
+                          </li>;
+                        })
+                      }
+                    </ul>
+                  </div>
+                </div>
               </li>
             )
           })

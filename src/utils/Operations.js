@@ -13,6 +13,22 @@ const {
 
 const Immutable = require('immutable');
 
+const updateDeck = (opType, deckIdx, updateFn) => {
+  return new Operation(opType, (dialogue) => {
+    return dialogue.updateIn(['decks'], (decks) => {
+      return decks.update(deckIdx, updateFn);
+    });
+  });
+};
+
+const updateCard = (opType, deckIdx, cardIdx, updateFn) => {
+  return updateDeck(opType, deckIdx, (deck) => {
+    return deck.updateIn(['cards'], (cards) => {
+      return cards.update(cardIdx, updateFn);
+    });
+  });
+};
+
 module.exports = {
   addDeck: () => {
     return new Operation(ADD_DECK, (state) => {
@@ -28,16 +44,14 @@ module.exports = {
   },
 
   changeLines: (deckIdx, cardIdx, newLines) => {
-    return new Operation(CHANGE_LINES, (dialogue) => {
-      return dialogue.updateIn(['decks'], (decks) => {
-        return decks.update(deckIdx, (deck) => {
-          return deck.updateIn(['cards'], (cards) => {
-            return cards.update(cardIdx, (card) => {
-              return card.set('lines',  Immutable.List(newLines));
-            });
-          });
-        });
-      });
+    return updateCard(CHANGE_LINES, deckIdx, cardIdx, (card) => {
+      return card.set('lines',  Immutable.List(newLines));
+    });
+  },
+
+  changeSpeaker: (deckIdx, newSpeaker) => {
+    return updateDeck(CHANGE_SPEAKER, deckIdx, (deck) => {
+      deck.set('speaker', newSpeaker);
     });
   }
 }

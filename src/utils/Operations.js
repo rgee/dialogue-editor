@@ -51,7 +51,7 @@ module.exports = {
 
   changeSpeaker: (deckIdx, newSpeaker) => {
     return updateDeck(CHANGE_SPEAKER, deckIdx, (deck) => {
-      deck.set('speaker', newSpeaker);
+      return deck.set('speaker', newSpeaker);
     });
   }
 }

@@ -14,6 +14,11 @@ const EditorPane = React.createClass({
     DialogueActions.performOperation(op);
   },
 
+  changeSpeaker(deckIdx, newSpeaker) {
+    const op = Operations.changeSpeaker(deckIdx, newSpeaker);
+    DialogueActions.performOperation(op);
+  },
+
   render() {
     const { dialogue } = this.props;
     if (!dialogue) {
@@ -36,7 +41,13 @@ const EditorPane = React.createClass({
           dialogue.decks.map((deck, deckIdx) => {
             return (
               <li className="deck" key={'deck-' + deckIdx}>
-                <h3>{deck.speaker}</h3>
+                <select value={deck.speaker} onChange={(e) => this.changeSpeaker(deckIdx, e.target.value)}>
+                  {
+                    dialogue.actors.map((actor) => {
+                      return <option value={actor}>{actor}</option>;
+                    })
+                  }
+                </select>
                 <ul className="cards">
                   {
                     deck.cards.map((card, cardIdx) => {

@@ -33,13 +33,18 @@ const CardEditor = React.createClass({
 
    render() {
      const { pendingLines } = this.state;
-     return <input
-       ref="input"
-       value={pendingLines}
-       onChange={this.change}
-       onKeyDown={this.keyDown}
-       onClick={this.halt}
-     />;
+     return (
+       <div className="card-editor">
+         <textarea
+           ref="input"
+           rows="3"
+           value={pendingLines}
+           onChange={this.change}
+           onKeyDown={this.keyDown}
+           onClick={this.halt}
+         />
+       </div>
+     );
    }
 });
 

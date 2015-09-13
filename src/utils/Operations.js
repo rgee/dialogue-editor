@@ -43,6 +43,12 @@ module.exports = {
     })
   },
 
+  removeDeck: (deckIdx) => {
+    return new Operation(REMOVE_DECK, (dialogue) => {
+      return dialogue.updateIn(['decks'], decks => decks.delete(deckIdx));
+    });
+  },
+
   changeLines: (deckIdx, cardIdx, newLines) => {
     return updateCard(CHANGE_LINES, deckIdx, cardIdx, (card) => {
       return card.set('lines',  Immutable.List(newLines));

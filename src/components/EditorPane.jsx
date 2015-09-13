@@ -23,6 +23,10 @@ const EditorPane = React.createClass({
     DialogueActions.performOperation(Operations.addDeck());
   },
 
+  removeDeck(deckIdx) {
+    DialogueActions.performOperation(Operations.removeDeck(deckIdx));
+  },
+
   render() {
     const { dialogue } = this.props;
     if (!dialogue) {
@@ -60,6 +64,12 @@ const EditorPane = React.createClass({
                         })
                       }
                     </select>
+                    <button
+                      type="button"
+                      onClick={() => this.removeDeck(deckIdx)}
+                      className="btn btn-xs btn-danger">
+                      Remove
+                    </button>
                   </div>
                   <div className="panel-body">
                     <ul className="cards list-unstyled">

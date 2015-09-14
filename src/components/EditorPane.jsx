@@ -3,6 +3,7 @@ const ClickStateToggle = require('./ClickStateToggle');
 const CardEditor = require('./CardEditor')
 const Operations = require('../utils/Operations');
 const DialogueActions = require('../actions/DialogueActions');
+const EmotionSelector = require('./EmotionSelector');
 
 const EditorPane = React.createClass({
   propTypes: {
@@ -25,6 +26,11 @@ const EditorPane = React.createClass({
 
   removeDeck(deckIdx) {
     DialogueActions.performOperation(Operations.removeDeck(deckIdx));
+  },
+
+  changeEmotion(e) {
+    const emotion = e.target.value;
+    console.debug('Changing emotion to: ' + emotion);
   },
 
   render() {
@@ -78,12 +84,13 @@ const EditorPane = React.createClass({
                       {
                         deck.cards.map((card, cardIdx) => {
                           return <li key={'deck-' + deckIdx + 'card-' + cardIdx} className="card">
-                            {
+                            <div className="well">
+                              <EmotionSelector value={card.emotion} onChange={this.changeEmotion} />
                               <ClickStateToggle onComplete={(lines) => this.updateLine(deckIdx, cardIdx, lines)}>
                                 <span className="line-display">{card.lines.join(' ')}</span>
                                 <CardEditor lines={card.lines}  />
                               </ClickStateToggle>
-                            }
+                            </div>
                           </li>;
                         })
                       }

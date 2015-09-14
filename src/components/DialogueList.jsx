@@ -28,7 +28,7 @@ const DialogueList = React.createClass({
       return <div>None</div>;
     }
 
-    return <div>
+    return <div className="dialogue-list">
       <ul>
         {paths.map((p) => {
           const base = path.parse(p).base;

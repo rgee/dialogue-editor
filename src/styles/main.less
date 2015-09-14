@@ -2,6 +2,60 @@ body {
   background-color: #eee;
   min-width: 1000px;
 
+  @navbar-width: 250px;
+  @light-font: #DDD;
+  @dark-font: #222;
+  @panel-padding: 20px 15px;
+
+  &.container-fluid {
+    padding: 0;
+  }
+
+  .editor-pane {
+    color: @dark-font;
+
+    .decks-title {
+      margin-right: 10px;
+    }
+
+    .actor-selector {
+      margin-right: 10px;
+    }
+  }
+
+  .editor {
+    padding-left: @navbar-width;
+  }
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .nav-panel {
+    padding: @panel-padding;
+    position: fixed;
+    margin-left: -@navbar-width;
+    background: #333;
+    overflow-y: auto;
+    height: 100%;
+    color: @light-font;
+    left: @navbar-width;
+    width: @navbar-width;
+    z-index: 1000;
+  }
+
+  .main-content {
+    width: 100%;
+    padding: @panel-padding;
+  }
+
+  .dialogue-list {
+    ul {
+      padding: 0;
+    }
+  }
+
   .card-editor {
     textarea {
       width: 100%;

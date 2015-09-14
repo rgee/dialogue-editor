@@ -50,15 +50,12 @@ const Editor = React.createClass({
     const jsDialogue = dialogue ? dialogue.toJS() : null;
 
     return <div className="editor">
-      <h1> Dialogue Editor </h1>
-      <div className="row">
-        <div className="col-xs-4">
-          <h2>Dialogues</h2>
-          <PathList onClick={this.selectDialoguePath}/>
-        </div>
-        <div className="col-xs-8">
-          <EditorPane dialogue={jsDialogue} />
-        </div>
+      <div className="nav-panel">
+        <h2>Dialogues</h2>
+        <PathList onClick={this.selectDialoguePath}/>
+      </div>
+      <div className="main-content">
+        <EditorPane dialogue={jsDialogue} />
       </div>
     </div>;
   }

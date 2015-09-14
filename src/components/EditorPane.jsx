@@ -43,13 +43,15 @@ const EditorPane = React.createClass({
             })
           }
         </ul>
-        <h2>Decks</h2>
-        <button
-          type="button"
-          onClick={this.addDeck}
-          className="btn btn-xs btn-default">
-          Add
-        </button>
+        <h2>
+          <span className="decks-title">Decks</span>
+          <button
+            type="button"
+            onClick={this.addDeck}
+            className="btn btn-xs btn-default">
+            Add
+          </button>
+        </h2>
         <ul className="decks list-unstyled">
         {
           dialogue.decks.map((deck, deckIdx) => {
@@ -57,7 +59,7 @@ const EditorPane = React.createClass({
               <li className="deck" key={'deck-' + deckIdx}>
                 <div className="panel panel-default">
                   <div className="panel-heading">
-                    <select value={deck.speaker} onChange={(e) => this.changeSpeaker(deckIdx, e.target.value)}>
+                    <select className="actor-selector" value={deck.speaker} onChange={(e) => this.changeSpeaker(deckIdx, e.target.value)}>
                       {
                         dialogue.actors.map((actor) => {
                           return <option value={actor}>{actor}</option>;

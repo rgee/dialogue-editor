@@ -34,7 +34,9 @@ const Editor = React.createClass({
 
   componentWillReceiveProps(newProps) {
     if (!this.props.currentDirectory && newProps.currentDirectory) {
-      DialoguePathActions.loadDialoguePaths(newProps.currentDirectory);
+      setTimeout(() => {
+        DialoguePathActions.loadDialoguePaths(newProps.currentDirectory)
+      }, 0);
     }
   },
 
@@ -55,9 +57,6 @@ const Editor = React.createClass({
           <PathList onClick={this.selectDialoguePath}/>
         </div>
         <div className="col-xs-8">
-          <h2>Choose Directory</h2>
-          <button onClick={CurrentDirectoryActions.requestDirectory}>Click Me</button>
-          <h2>Editor</h2>
           <EditorPane dialogue={jsDialogue} />
         </div>
       </div>

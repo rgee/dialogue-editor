@@ -4,19 +4,31 @@ var menu = require('menu');
 
 var newMenu = [
   {
+    label: 'File',
+    submenu: [
+      {
+        label: 'Open Directory',
+        accelerator: 'CmdOrCtrl+O',
+        click: function (item, window) {
+          window.webContents.send('open');
+        }
+      }
+    ]
+  },
+  {
     label: 'Edit',
     submenu: [
       {
         label: 'Undo',
         accelerator: 'CmdOrCtrl+Z',
-        click: function(item, window) {
+        click: function (item, window) {
           window.webContents.send('undo');
         }
       },
       {
         label: 'Redo',
         accelerator: 'CmdOrCtrl+Y',
-        click: function(item, window) {
+        click: function (item, window) {
           window.webContents.send('redo');
         }
       }
@@ -75,7 +87,7 @@ if (process.platform === 'darwin') {
 var mainWindow = null;
 app.on('window-all-closed', function () {
   if (process.platform === 'darwin') {
-    app.quit();    
+    app.quit();
   }
 });
 

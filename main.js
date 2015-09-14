@@ -12,6 +12,13 @@ var newMenu = [
         click: function (item, window) {
           window.webContents.send('open');
         }
+      },
+      {
+        label: 'Save',
+        accelerator: 'CmdOrCtrl+S',
+        click: function (item, window) {
+          window.webContents.send('save');
+        }
       }
     ]
   },

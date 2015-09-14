@@ -17,12 +17,16 @@ class DialogueHistoryStore {
     this.history.undo();
   }
 
+  onSave() {
+    this.history.save();
+  }
+
   onRedo() {
     this.history.redo();
   }
 
-  onLoad(dialogue) {
-    this.history = new DialogueHistory(dialogue);
+  onLoad(data) {
+    this.history = new DialogueHistory(data.path, data.dialogue);
   }
 }
 

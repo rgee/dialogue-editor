@@ -1,8 +1,18 @@
 class DialogueHistory {
-  constructor(initialState) {
+  constructor(path, initialState) {
+    this.path = path;
     this.states = [initialState];
     this.ops = [];
     this.stateIndex = 0;
+    this.lastSaved = initialState;
+  }
+
+  save() {
+    this.lastSaved = this.getState();
+  }
+
+  isDirty() {
+    return this.lastSaved === this.getState();
   }
 
   getState() {

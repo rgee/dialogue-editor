@@ -8,11 +8,19 @@ class DialogueActions {
     this.generateActions('undo', 'redo');
   }
 
+  save(path, dialogue) {
+    return (dispatch) => {
+      jetpack.writeAsync(path, dialogue)
+        .then(dispatch)
+        .catch(err => console.error(err));
+    };
+  }
+
   load(path) {
     return (dispatch) => {
       jetpack.readAsync(path, 'json')
         .then(Immutable.fromJS)
-        .then(dispatch)
+        .then(data => dispatch({ path, dialogue: data }))
         .catch((err) => console.error(err));
     };
   }

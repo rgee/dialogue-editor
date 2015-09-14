@@ -12,7 +12,7 @@ class DialogueHistory {
   }
 
   isDirty() {
-    return this.lastSaved === this.getState();
+    return this.lastSaved !== this.getState();
   }
 
   getState() {

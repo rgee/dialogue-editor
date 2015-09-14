@@ -4,7 +4,12 @@ const StateToggle = require('./StateToggle');
 
 const ClickStateToggle = React.createClass({
   propTypes: {
-    onComplete: React.PropTypes.func
+    onComplete: React.PropTypes.func,
+    forceEnabled: React.PropTypes.boolean
+  },
+
+  getDefaultProps() {
+    return { forceEnabled: false };
   },
 
   getInitialState() {
@@ -21,7 +26,8 @@ const ClickStateToggle = React.createClass({
   },
 
   render() {
-    const { children, onComplete } = this.props;
+    const { forceEnabled, children, onComplete } = this.props;
+    const { enabled } = this.state;
     let [display, editing] = children;
     editing = React.cloneElement(editing, {
       onComplete: this.onComplete
@@ -29,7 +35,7 @@ const ClickStateToggle = React.createClass({
 
     return (
       <div onClick={this.toggleEnabled}>
-        <StateToggle enabled={this.state.enabled}>
+        <StateToggle enabled={enabled || forceEnabled}>
           {[display, editing]}
         </StateToggle>
       </div>

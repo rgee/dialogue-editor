@@ -101,7 +101,7 @@ const EditorPane = React.createClass({
                           return <li key={'deck-' + deckIdx + 'card-' + cardIdx} className="card">
                             <div className="well">
                               <EmotionSelector value={card.emotion} onChange={(e) => this.changeEmotion(deckIdx, cardIdx, e.target.value)} />
-                              <ClickStateToggle onComplete={(lines) => this.updateLine(deckIdx, cardIdx, lines)}>
+                              <ClickStateToggle onComplete={(lines) => this.updateLine(deckIdx, cardIdx, lines)} forceEnabled={!card.lines.length}>
                                 <span className="line-display">{card.lines.join(' ')}</span>
                                 <CardEditor lines={card.lines}  />
                               </ClickStateToggle>

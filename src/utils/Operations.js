@@ -41,7 +41,20 @@ module.exports = {
       });
 
       return state.updateIn(['decks'], val => val.push(newDeck));
-    })
+    });
+  },
+
+  addDeckAfter: (deckIdx) => {
+    return new Operation(ADD_DECK, (dialogue) => {
+      const newDeck = Immutable.fromJS({
+        speaker: null,
+        cards: [{
+          lines: []
+        }]
+      });
+
+      return dialogue.updateIn(['decks'], decks => decks.splice(deckIdx + 1, 0, newDeck));
+    });
   },
 
   removeDeck: (deckIdx) => {

@@ -33,6 +33,11 @@ const EditorPane = React.createClass({
     DialogueActions.performOperation(op);
   },
 
+  addDeckAfter(deckIdx) {
+    const op = Operations.addDeckAfter(deckIdx);
+    DialogueActions.performOperation(op);
+  },
+
   render() {
     const { dialogue } = this.props;
     if (!dialogue) {
@@ -77,6 +82,12 @@ const EditorPane = React.createClass({
                       onClick={() => this.removeDeck(deckIdx)}
                       className="btn btn-xs btn-danger">
                       Remove
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => this.addDeckAfter(deckIdx)}
+                      className="btn btn-xs btn-default add-deck-after">
+                      Add
                     </button>
                   </div>
                   <div className="panel-body">

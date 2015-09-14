@@ -14,7 +14,7 @@ module.exports = () => {
   ipc.on('open', CurrentDirectoryActions.requestDirectory)
   ipc.on('save', () => {
     const { history } = DialogueHistoryStore.getState();
-    if (history) {
+    if (history && history.isDirty()) {
       const { path } = history;
       DialogueActions.save(path, history.getState());
     }

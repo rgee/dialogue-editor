@@ -8,7 +8,8 @@ const {
   CHANGE_DELAY,
   ADD_SPEAKER,
   REMOVE_SPEAKER,
-  CHANGE_LINES
+  CHANGE_LINES,
+  CHANGE_EMOTION
 } = require('./OperationTypes');
 
 const Immutable = require('immutable');
@@ -58,6 +59,12 @@ module.exports = {
   changeSpeaker: (deckIdx, newSpeaker) => {
     return updateDeck(CHANGE_SPEAKER, deckIdx, (deck) => {
       return deck.set('speaker', newSpeaker);
+    });
+  },
+
+  changeEmotion: (deckIdx, cardIdx, newEmotion) => {
+    return updateCard(CHANGE_EMOTION, deckIdx, cardIdx, (card) => {
+      return card.set('emotion', newEmotion);
     });
   }
 }

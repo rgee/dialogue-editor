@@ -28,9 +28,9 @@ const EditorPane = React.createClass({
     DialogueActions.performOperation(Operations.removeDeck(deckIdx));
   },
 
-  changeEmotion(e) {
-    const emotion = e.target.value;
-    console.debug('Changing emotion to: ' + emotion);
+  changeEmotion(deckIdx, cardIdx, newEmotion) {
+    const op = Operations.changeEmotion(deckIdx, cardIdx, newEmotion);
+    DialogueActions.performOperation(op);
   },
 
   render() {
@@ -85,7 +85,7 @@ const EditorPane = React.createClass({
                         deck.cards.map((card, cardIdx) => {
                           return <li key={'deck-' + deckIdx + 'card-' + cardIdx} className="card">
                             <div className="well">
-                              <EmotionSelector value={card.emotion} onChange={this.changeEmotion} />
+                              <EmotionSelector value={card.emotion} onChange={(e) => this.changeEmotion(deckIdx, cardIdx, e.target.valu)} />
                               <ClickStateToggle onComplete={(lines) => this.updateLine(deckIdx, cardIdx, lines)}>
                                 <span className="line-display">{card.lines.join(' ')}</span>
                                 <CardEditor lines={card.lines}  />

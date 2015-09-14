@@ -1,5 +1,6 @@
 const React = require('react/addons');
 const ipc = require('ipc');
+const Modal = require('react-modal');
 
 const Editor = require('./components/Editor');
 
@@ -8,7 +9,10 @@ const CurrentDirectoryActions = require('./actions/CurrentDirectoryActions');
 const DialogueHistoryStore = require('./stores/DialogueHistoryStore');
 
 module.exports = () => {
+  Modal.setAppElement(document.body);
+
   React.render(<Editor />, document.body);
+
   ipc.on('undo', DialogueActions.undo);
   ipc.on('redo', DialogueActions.redo);
   ipc.on('open', CurrentDirectoryActions.requestDirectory)

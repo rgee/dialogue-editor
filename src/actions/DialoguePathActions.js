@@ -14,6 +14,14 @@ class DialoguePathActions {
     this.generateActions('loadStart', 'loadFailed');
   }
 
+  writeNewDialogue(path) {
+    return (dispatch) => {
+      jetpack
+        .writeAsync(path, { actors: [], decks: [] })
+        .then(() => dispatch(path));
+    };
+  }
+
   loadDialoguePaths(directory) {
     this.actions.loadStart();
     return (dispatch) => {

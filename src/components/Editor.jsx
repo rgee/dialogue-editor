@@ -70,6 +70,18 @@ const Editor = React.createClass({
     });
   },
 
+  addDialogue() {
+    const { currentDirectory } = this.props;
+    const { pendingFileName } = this.state;
+
+    const path = pathJoin(currentDirectory, pendingFileName);
+    DialoguePathActions.writeNewDialogue(path);
+    this.setState({
+      pendingFileName: null,
+      requestingFileName: false
+    });
+  },
+
   render() {
     const { currentDirectory, dialogue } = this.props;
     const jsDialogue = dialogue ? dialogue.toJS() : null;
@@ -117,6 +129,12 @@ const Editor = React.createClass({
                 />
               </div>
               <div className="modal-footer">
+                <button
+                  type="button"
+                  className="add-dialogue"
+                  onClick={this.addDialogue}>
+                  Add
+                </button>
               </div>
             </div>
           </div>

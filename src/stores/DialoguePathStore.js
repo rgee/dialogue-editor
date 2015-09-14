@@ -10,6 +10,10 @@ class DialoguePathStore {
   onLoadDialoguePaths(paths) {
     this.paths = paths;
   }
+
+  onWriteNewDialogue(path) {
+    this.paths.push(path);
+  }
 }
 
 module.exports = alt.createStore(DialoguePathStore, 'PathStore');

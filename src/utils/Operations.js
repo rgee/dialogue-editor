@@ -31,10 +31,10 @@ const updateCard = (opType, deckIdx, cardIdx, updateFn) => {
 };
 
 module.exports = {
-  addDeck: () => {
+  addDeck: (speaker) => {
     return new Operation(ADD_DECK, (state) => {
       const newDeck = Immutable.fromJS({
-        speaker: null,
+        speaker,
         cards: [{
           lines: []
         }]
@@ -44,10 +44,10 @@ module.exports = {
     });
   },
 
-  addDeckAfter: (deckIdx) => {
+  addDeckAfter: (deckIdx, speaker) => {
     return new Operation(ADD_DECK, (dialogue) => {
       const newDeck = Immutable.fromJS({
-        speaker: null,
+        speaker,
         cards: [{
           lines: []
         }]

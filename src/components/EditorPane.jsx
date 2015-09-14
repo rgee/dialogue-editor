@@ -21,7 +21,9 @@ const EditorPane = React.createClass({
   },
 
   addDeck() {
-    DialogueActions.performOperation(Operations.addDeck());
+    const { dialogue } = this.props;
+    const firstActor = dialogue.actors[0];
+    DialogueActions.performOperation(Operations.addDeck(firstActor));
   },
 
   removeDeck(deckIdx) {
@@ -34,7 +36,9 @@ const EditorPane = React.createClass({
   },
 
   addDeckAfter(deckIdx) {
-    const op = Operations.addDeckAfter(deckIdx);
+    const { dialogue } = this.props;
+    const firstActor = dialogue.actors[0];
+    const op = Operations.addDeckAfter(deckIdx, firstActor);
     DialogueActions.performOperation(op);
   },
 

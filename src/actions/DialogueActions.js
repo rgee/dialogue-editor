@@ -8,10 +8,11 @@ class DialogueActions {
     this.generateActions('undo', 'redo');
   }
 
-  save(path, dialogue) {
+  save(path, dialogue, cb=() => {}) {
     return (dispatch) => {
       jetpack.writeAsync(path, dialogue)
         .then(dispatch)
+        .then(cb)
         .catch(err => console.error(err));
     };
   }

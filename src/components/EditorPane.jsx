@@ -10,6 +10,10 @@ const EditorPane = React.createClass({
     dialogue: React.PropTypes.object
   },
 
+  getInitialState() {
+    return {};
+  },
+
   updateLine(deckIdx, cardIdx, lines) {
     const op = Operations.changeLines(deckIdx, cardIdx, lines);
     DialogueActions.performOperation(op);
@@ -42,6 +46,25 @@ const EditorPane = React.createClass({
     DialogueActions.performOperation(op);
   },
 
+  addActor() {
+    this.setState({ addingActor: true });
+  },
+
+  onPendingActorKeyDown(e) {
+    if (e.keyCode === 13) {
+      const op = Operations.addActor(this.state.pendingActor);
+      DialogueActions.performOperation(op);
+      this.setState({
+        addingActor: false,
+        pendingActor: null
+      });
+    }
+  },
+
+  updatePendingActor(e) {
+    this.setState({ pendingActor: e.target.value });
+  },
+
   render() {
     const { dialogue } = this.props;
     if (!dialogue) {
@@ -50,7 +73,15 @@ const EditorPane = React.createClass({
 
     return (
       <div className="editor-pane">
-        <h2>Actors</h2>
+        <h2>
+          <span className="actors-title">Actors</span>
+          <button
+            type="button"
+            onClick={this.addActor}
+            className="btn btn-xs btn-default">
+            Add
+          </button>
+        </h2>
         <ul className="actors">
           {
             dialogue.actors.map((actor) => {
@@ -58,6 +89,15 @@ const EditorPane = React.createClass({
             })
           }
         </ul>
+        { this.state.addingActor ?
+          <div className="new-actor">
+            <input
+              onChange={this.updatePendingActor}
+              value={this.state.pendingActor}
+              onKeyDown={this.onPendingActorKeyDown}
+              />
+          </div>
+        : null }
         <h2>
           <span className="decks-title">Decks</span>
           <button

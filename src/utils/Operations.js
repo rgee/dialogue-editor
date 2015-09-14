@@ -31,6 +31,12 @@ const updateCard = (opType, deckIdx, cardIdx, updateFn) => {
 };
 
 module.exports = {
+  addActor: (name) => {
+    return new Operation(ADD_SPEAKER, (dialogue) => {
+      return dialogue.updateIn(['actors'], actor => actor.push(name));
+    });
+  },
+
   addDeck: (speaker) => {
     return new Operation(ADD_DECK, (state) => {
       const newDeck = Immutable.fromJS({

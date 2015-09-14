@@ -8,7 +8,7 @@ const CardEditor = React.createClass({
    },
 
    componentWillMount() {
-     this.setState({ pendingLines: this.props.lines.join('. ')});
+     this.setState({ pendingLines: this.props.lines.join(' ')});
    },
 
    getInitialState() {
@@ -17,14 +17,18 @@ const CardEditor = React.createClass({
 
    change(e) {
      this.setState({
-       pendingLines: e.target.value.split('. ')
+       pendingLines: e.target.value
      });
    },
 
    keyDown(e) {
      if (e.keyCode === ENTER_KEY_CODE) {
-       this.props.onComplete(this.state.pendingLines);
+       this.props.onComplete(this.getSentences(this.state.pendingLines));
      }
+   },
+
+   getSentences(lines) {
+     return lines.replace(/([.?!])\x20{1,2}(?=[A-Z\d])/g, "$1|").split("|");
    },
 
    halt(e) {

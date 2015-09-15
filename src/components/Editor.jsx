@@ -119,8 +119,8 @@ const Editor = React.createClass({
 
     return <div className="editor">
       <div className="nav-panel">
-        <h2>
-          <span>Dialogues</span>
+        <h2 className="dialogues-header">
+          <span className="dialogues-header-label">Dialogues</span>
           {currentDirectory ? <button
             type="button"
             onClick={this.startAddFileFlow}

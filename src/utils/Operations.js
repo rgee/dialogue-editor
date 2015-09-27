@@ -52,9 +52,9 @@ module.exports = {
 
   addCard: (deckIdx) => {
     return updateDeck(ADD_CARD, deckIdx, (deck) => {
-      const newCard = {
+      const newCard = Immutable.fromJS({
         lines: []
-      };
+      });
 
       return deck.updateIn(['cards'], cards => cards.push(newCard));
     });

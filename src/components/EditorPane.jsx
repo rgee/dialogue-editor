@@ -46,6 +46,18 @@ const EditorPane = React.createClass({
     DialogueActions.performOperation(op);
   },
 
+  addCard(deckIdx) {
+    const { dialogue } = this.props;
+    const op = Operations.addCard(deckIdx);
+    DialogueActions.performOperation(op);
+  },
+
+  removeCard(deckIdx, cardIdx) {
+    const { dialogue } = this.props;
+    const op = Operations.removeCard(deckIdx, cardIdx);
+    DialogueActions.performOperation(op);
+  },
+
   addActor() {
     this.setState({ addingActor: true });
   },
@@ -135,12 +147,24 @@ const EditorPane = React.createClass({
                     </button>
                   </div>
                   <div className="panel-body">
+                    <button
+                      type="button"
+                      onClick={() => this.addCard(deckIdx)}
+                      className="btn btn-xs btn-default">
+                      Add Card
+                    </button>
                     <ul className="cards list-unstyled">
                       {
                         deck.cards.map((card, cardIdx) => {
                           return <li key={'deck-' + deckIdx + 'card-' + cardIdx} className="card">
                             <div className="well">
                               <EmotionSelector value={card.emotion} onChange={(e) => this.changeEmotion(deckIdx, cardIdx, e.target.value)} />
+                              <button
+                                type="button"
+                                onClick={() => this.removeCard(deckIdx, cardIdx)}
+                                className="btn btn-xs btn-danger">
+                                Remove
+                              </button>
                               <ClickStateToggle onComplete={(lines) => this.updateLine(deckIdx, cardIdx, lines)} forceEnabled={!card.lines.length}>
                                 <span className="line-display">{card.lines.join(' ')}</span>
                                 <CardEditor lines={card.lines}  />

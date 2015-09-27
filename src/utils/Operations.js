@@ -50,6 +50,16 @@ module.exports = {
     });
   },
 
+  addCard: (deckIdx) => {
+    return updateDeck(ADD_CARD, deckIdx, (deck) => {
+      const newCard = {
+        lines: []
+      };
+
+      return deck.updateIn(['cards'], cards => cards.push(newCard));
+    });
+  },
+
   addDeckAfter: (deckIdx, speaker) => {
     return new Operation(ADD_DECK, (dialogue) => {
       const newDeck = Immutable.fromJS({
@@ -66,6 +76,12 @@ module.exports = {
   removeDeck: (deckIdx) => {
     return new Operation(REMOVE_DECK, (dialogue) => {
       return dialogue.updateIn(['decks'], decks => decks.delete(deckIdx));
+    });
+  },
+
+  removeCard: (deckIdx, cardIdx) => {
+    return updateDeck(REMOVE_CARD, deckIdx, (deck) => {
+      return deck.updateIn(['cards'], cards => cards.delete(cardIdx));
     });
   },
 

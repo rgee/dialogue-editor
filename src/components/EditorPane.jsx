@@ -3,7 +3,7 @@ const ClickStateToggle = require('./ClickStateToggle');
 const CardEditor = require('./CardEditor')
 const Operations = require('../utils/Operations');
 const DialogueActions = require('../actions/DialogueActions');
-const EmotionSelector = require('./EmotionSelector');
+const EmotionalResponseEditor = require('./EmotionalResponseEditor');
 
 const EditorPane = React.createClass({
   propTypes: {
@@ -158,7 +158,19 @@ const EditorPane = React.createClass({
                         deck.cards.map((card, cardIdx) => {
                           return <li key={'deck-' + deckIdx + 'card-' + cardIdx} className="card">
                             <div className="well">
-                              <EmotionSelector value={card.emotion} onChange={(e) => this.changeEmotion(deckIdx, cardIdx, e.target.value)} />
+                              <div>
+                                {dialogue.actors.map((actor) => {
+                                  const value = {
+                                    actorName: actor
+                                  };
+                                  return (<EmotionalResponseEditor
+                                    onChange={(e) => {
+
+                                    }}
+                                    value={value}
+                                  />);
+                                })}
+                              </div>
                               <button
                                 type="button"
                                 onClick={() => this.removeCard(deckIdx, cardIdx)}

@@ -50,15 +50,30 @@ const EmotionalResponseEditor = React.createClass({
   },
 
   onPositionChange(e) {
-
+    const position = e.target.value;
+    const newValue = Object.assign({}, this.props.value, { position });
+    this.emit(newValue);
   },
 
   onEmotionChange(e) {
-
+    const emotion = e.target.value;
+    const newValue = Object.assign({}, this.props.value, { emotion });
+    this.emit(newValue);
   },
 
   onFacingChange(e) {
+    const facing = e.target.value;
+    const newValue = Object.assign({}, this.props.value, { facing });
+    this.emit(newValue);
+  },
 
+  emit(value) {
+    const { onChange, actorName } = this.props;
+    const result = Object.assign({}, {
+      actorName
+    }, value);
+
+    onChange(result);
   },
 
   render() {

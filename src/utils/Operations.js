@@ -14,18 +14,38 @@ const {
 
 const Immutable = require('immutable');
 
+
+const createNewEmotionalResponses = (dialogue) => {
+  const actors = dialogue.get('actors');
+
+  const emotions = {};
+  actors.forEach((actor, idx) => {
+    emotions[actor] = {
+      position: idx,
+      facing: 'left',
+      emotion: 'default'
+    }
+  });
+
+  return emotions;
+};
+
 const updateDeck = (opType, deckIdx, updateFn) => {
   return new Operation(opType, (dialogue) => {
     return dialogue.updateIn(['decks'], (decks) => {
-      return decks.update(deckIdx, updateFn);
+      return decks.update(deckIdx, (deck) => {
+        return updateFn(deck, dialogue);
+      });
     });
   });
 };
 
 const updateCard = (opType, deckIdx, cardIdx, updateFn) => {
-  return updateDeck(opType, deckIdx, (deck) => {
+  return updateDeck(opType, deckIdx, (deck, dialogue) => {
     return deck.updateIn(['cards'], (cards) => {
-      return cards.update(cardIdx, updateFn);
+      return cards.update(cardIdx, (card) => {
+        return updateFn(card, dialogue);
+      });
     });
   });
 };
@@ -33,7 +53,36 @@ const updateCard = (opType, deckIdx, cardIdx, updateFn) => {
 module.exports = {
   addActor: (name) => {
     return new Operation(ADD_SPEAKER, (dialogue) => {
-      return dialogue.updateIn(['actors'], actor => actor.push(name));
+      return dialogue
+        .updateIn(['actors'], actor => actor.push(name))
+        .updateIn(['decks'], (decks) => {
+          return decks.map((deck) => {
+            return deck.updateIn(['cards'], (cards) => {
+              return cards.map((card) => {
+                return card.updateIn(['emotionalResponses'], (responses) => {
+                  const takenSlots = responses.map((response) => response.position);
+                  let firstOpenSlot;
+                  for (let i = 0; i < 4; i++) {
+                    if (takenSlots.indexOf(i) < 0) {
+                      firstOpenSlot = i;
+                      break;
+                    }
+                  }
+
+                  if (!firstOpenSlot) {
+                    throw new Error("agh, no open slots for new actor");
+                  }
+
+                  return responses.set('name', {
+                    position: firstOpenSlot,
+                    facing: 'left',
+                    emotion: 'default'
+                  });
+                })
+              })
+            })
+          })
+        })
     });
   },
 
@@ -42,7 +91,8 @@ module.exports = {
       const newDeck = Immutable.fromJS({
         speaker,
         cards: [{
-          lines: []
+          lines: [],
+          emotionalResponses: createNewEmotionalResponses(state)
         }]
       });
 
@@ -51,9 +101,10 @@ module.exports = {
   },
 
   addCard: (deckIdx) => {
-    return updateDeck(ADD_CARD, deckIdx, (deck) => {
+    return updateDeck(ADD_CARD, deckIdx, (deck, dialogue) => {
       const newCard = Immutable.fromJS({
-        lines: []
+        lines: [],
+        emotionalResponses: createNewEmotionalResponses(dialogue)
       });
 
       return deck.updateIn(['cards'], cards => cards.push(newCard));
@@ -65,7 +116,8 @@ module.exports = {
       const newDeck = Immutable.fromJS({
         speaker,
         cards: [{
-          lines: []
+          lines: [],
+          emotionalResponses: createNewEmotionalResponses(dialogue)
         }]
       });
 

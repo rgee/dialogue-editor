@@ -160,12 +160,14 @@ const EditorPane = React.createClass({
                             <div className="well">
                               <div>
                                 {dialogue.actors.map((actor) => {
+                                  const response = card.emotionalResponses[actor];
                                   const value = {
-                                    actorName: actor
+                                    actorName: actor,
+                                    value: response
                                   };
                                   return (<EmotionalResponseEditor
-                                    onChange={(e) => {
-
+                                    onChange={(response) => {
+                                      this.updateEmotionalResponse(deckIdx, cardIdx, actor, response);
                                     }}
                                     value={value}
                                   />);

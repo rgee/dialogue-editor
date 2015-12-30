@@ -9,7 +9,8 @@ const {
   ADD_SPEAKER,
   REMOVE_SPEAKER,
   CHANGE_LINES,
-  CHANGE_EMOTION
+  CHANGE_EMOTION,
+  CHANGE_EMOTIONAL_RESPONSE
 } = require('./OperationTypes');
 
 const Immutable = require('immutable');
@@ -146,6 +147,12 @@ module.exports = {
   changeSpeaker: (deckIdx, newSpeaker) => {
     return updateDeck(CHANGE_SPEAKER, deckIdx, (deck) => {
       return deck.set('speaker', newSpeaker);
+    });
+  },
+
+  changeEmotionalResponse: (deckIdx, cardIdx, actor, response) => {
+    return updateCard(CHANGE_EMOTIONAL_RESPONSE, deckIdx, cardIdx, (card) => {
+      return card.setIn(['emotionalResponses', actor], response);
     });
   },
 

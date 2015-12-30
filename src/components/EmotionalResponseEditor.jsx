@@ -68,12 +68,7 @@ const EmotionalResponseEditor = React.createClass({
   },
 
   emit(value) {
-    const { onChange, actorName } = this.props;
-    const result = Object.assign({}, {
-      actorName
-    }, value);
-
-    onChange(result);
+    this.props.onChange(value);
   },
 
   render() {

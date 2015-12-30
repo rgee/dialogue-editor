@@ -7,5 +7,6 @@ module.exports = {
   ADD_SPEAKER: Symbol('add speaker'),
   REMOVE_SPEAKER: Symbol('remove speaker'),
   CHANGE_LINES: Symbol('change lines'),
-  CHANGE_EMOTION: Symbol('change emotion')
+  CHANGE_EMOTION: Symbol('change emotion'),
+  CHANGE_EMOTIONAL_RESPONSE: Symbol('change emotional response')
 };

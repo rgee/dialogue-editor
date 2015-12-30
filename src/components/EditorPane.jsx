@@ -39,6 +39,11 @@ const EditorPane = React.createClass({
     DialogueActions.performOperation(op);
   },
 
+  updateEmotionalResponse(deckIdx, cardIdx, actor, response) {
+    const op = Operations.changeEmotionalResponse(deckIdx, cardIdx, actor, response);
+    DialogueActions.performOperation(op);
+  },
+
   addDeckAfter(deckIdx) {
     const { dialogue } = this.props;
     const firstActor = dialogue.actors[0];
@@ -161,15 +166,12 @@ const EditorPane = React.createClass({
                               <div>
                                 {dialogue.actors.map((actor) => {
                                   const response = card.emotionalResponses[actor];
-                                  const value = {
-                                    actorName: actor,
-                                    value: response
-                                  };
                                   return (<EmotionalResponseEditor
+                                    actorName={actor}
                                     onChange={(response) => {
                                       this.updateEmotionalResponse(deckIdx, cardIdx, actor, response);
                                     }}
-                                    value={value}
+                                    value={response}
                                   />);
                                 })}
                               </div>

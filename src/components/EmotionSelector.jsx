@@ -3,9 +3,15 @@ const capitalize = require('lodash/string/capitalize');
 
 const EMOTIONS = [
   'default',
+  'worried',
   'happy',
-  'sad'
+  'pensive',
+  'content',
+  'horror',
+  'anger',
+  'regret'
 ];
+
 const EmotionSelector = React.createClass({
   propTypes: {
     value: React.PropTypes.string.isRequired,
